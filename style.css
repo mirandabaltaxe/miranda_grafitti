@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,400;0,500;1,400&family=Jost:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,400;0,600;1,400&family=Jost:wght@400;500;600&display=swap');
 
 /* ─────────────────────────────────────────
    Base
@@ -23,8 +23,8 @@ html {
   background: var(--bg);
   color: var(--text);
   font-family: 'Jost', sans-serif;
-  font-weight: 400;
-  font-size: 16px;
+  font-weight: 500;
+  font-size: 17px;
   line-height: 1.8;
   -webkit-font-smoothing: antialiased;
 }
@@ -41,7 +41,7 @@ body {
 
 h1 {
   font-family: 'Cormorant', serif;
-  font-weight: 500;
+  font-weight: 600;
   font-size: 3.2rem;
   line-height: 1.1;
   letter-spacing: 0.01em;
@@ -50,8 +50,8 @@ h1 {
 
 h2 {
   font-family: 'Jost', sans-serif;
-  font-weight: 500;
-  font-size: 0.7rem;
+  font-weight: 600;
+  font-size: 0.72rem;
   text-transform: uppercase;
   letter-spacing: 0.18em;
   color: var(--accent);
@@ -60,17 +60,18 @@ h2 {
 
 h3 {
   font-size: 1rem;
-  font-weight: 400;
+  font-weight: 600;
   margin: 1.5rem 0 0.25rem;
 }
 
 p {
   margin-bottom: 1rem;
-  font-size: 0.95rem;
+  font-size: 1rem;
 }
 
 .meta {
   font-size: 0.75rem;
+  font-weight: 600;
   color: var(--muted);
   letter-spacing: 0.06em;
   text-transform: uppercase;
@@ -132,7 +133,7 @@ nav {
 
 nav .site-title {
   font-size: 0.7rem;
-  font-weight: 400;
+  font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.18em;
   color: var(--text);
@@ -173,7 +174,7 @@ nav .nav-links .current {
 footer {
   margin-top: 5rem;
   font-size: 0.72rem;
-  font-weight: 400;
+  font-weight: 600;
   color: var(--muted);
   letter-spacing: 0.04em;
 }
@@ -212,7 +213,7 @@ footer a:hover {
 
 .project-list .project-title {
   font-family: 'Cormorant', serif;
-  font-weight: 500;
+  font-weight: 600;
   font-size: 1.5rem;
   line-height: 1.2;
   grid-column: 1;
@@ -222,6 +223,7 @@ footer a:hover {
 
 .project-list .project-meta {
   font-size: 0.7rem;
+  font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.1em;
   color: var(--muted);
@@ -235,8 +237,8 @@ footer a:hover {
 .project-list p {
   grid-column: 1 / -1;
   grid-row: 2;
-  font-size: 0.9rem;
-  color: #555;
+  font-size: 0.95rem;
+  color: #1a1a1a;
   margin-bottom: 0.6rem;
 }
 
@@ -272,7 +274,7 @@ footer a:hover {
 
 .tag {
   font-size: 0.65rem;
-  font-weight: 400;
+  font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.1em;
   color: var(--muted);
@@ -303,12 +305,13 @@ footer a:hover {
 
 .cv-role {
   font-family: 'Cormorant', serif;
-  font-weight: 500;
+  font-weight: 600;
   font-size: 1.15rem;
 }
 
 .cv-period {
   font-size: 0.68rem;
+  font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.1em;
   color: var(--muted);
@@ -318,6 +321,7 @@ footer a:hover {
 
 .cv-place {
   font-size: 0.8rem;
+  font-weight: 600;
   color: var(--muted);
   margin-bottom: 0.5rem;
 }
@@ -328,12 +332,12 @@ footer a:hover {
 }
 
 .cv-bullets li {
-  font-size: 0.88rem;
+  font-size: 0.95rem;
   line-height: 1.7;
   padding-left: 1.1rem;
   position: relative;
   margin-bottom: 0.25rem;
-  color: #444;
+  color: #1a1a1a;
 }
 
 .cv-bullets li::before {
@@ -373,6 +377,7 @@ footer a:hover {
 
 .press-outlet {
   font-size: 0.68rem;
+  font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.14em;
   color: var(--muted);
@@ -382,13 +387,13 @@ footer a:hover {
 .press-headline {
   font-family: 'Cormorant', serif;
   font-size: 1.25rem;
-  font-weight: 500;
+  font-weight: 600;
   margin-bottom: 0.4rem;
 }
 
 .press-entry p {
-  font-size: 0.88rem;
-  color: #555;
+  font-size: 0.95rem;
+  color: #1a1a1a;
   margin-bottom: 0.3rem;
 }
 
@@ -421,6 +426,7 @@ footer a:hover {
 
 .contact-list .label {
   font-size: 0.68rem;
+  font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.14em;
   color: var(--muted);
@@ -442,7 +448,7 @@ footer a:hover {
   padding: 1.1rem 1.4rem;
   font-family: 'Jost', sans-serif;
   font-size: 0.78rem;
-  font-weight: 400;
+  font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.1em;
   z-index: 9999;
@@ -464,7 +470,7 @@ footer a:hover {
 #graffiti-toolbar button {
   font-family: 'Jost', sans-serif;
   font-size: 0.78rem;
-  font-weight: 400;
+  font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.1em;
   background: none;
