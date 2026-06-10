@@ -32,7 +32,12 @@ html {
 body {
   max-width: var(--max-width);
   margin: 0 auto;
-  padding: 3rem 2rem 8rem;
+  padding: 5rem 2rem 8rem;  /* 5rem top clears the fixed nav */
+}
+
+/* Each section on the single-page layout */
+.section {
+  padding-top: 5rem;
 }
 
 /* ─────────────────────────────────────────
@@ -59,9 +64,13 @@ h2 {
 }
 
 h3 {
-  font-size: 1rem;
+  font-family: 'Jost', sans-serif;
+  font-size: 0.65rem;
   font-weight: 600;
-  margin: 1.5rem 0 0.25rem;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: var(--muted);
+  margin: 2.5rem 0 1rem;
 }
 
 p {
@@ -125,10 +134,22 @@ hr {
 ───────────────────────────────────────── */
 
 nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: var(--bg);
+  border-bottom: 1px solid var(--rule);
+  z-index: 9998;
+}
+
+.nav-inner {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 1rem 2rem;
   display: flex;
   justify-content: space-between;
   align-items: baseline;
-  margin-bottom: 5rem;
 }
 
 nav .site-title {
@@ -162,9 +183,8 @@ nav .nav-links a:hover {
   color: var(--accent);
 }
 
-nav .nav-links .current {
+nav .nav-links a.active {
   color: var(--text);
-  cursor: default;
 }
 
 /* ─────────────────────────────────────────
