@@ -41,7 +41,7 @@ let isDrawing   = false;
 let livePoints  = [];      // points being collected for the stroke in progress
 let activeColor = PALETTE[0];
 let activeWidth = 3;
-let activeTool  = 'pen';   // 'pen' | 'erase' | null (browse mode)
+let activeTool  = null;    // 'pen' | 'erase' | null (browse mode — default)
 
 // ─── Canvas ───────────────────────────────────────────────────────────────────
 const canvas = document.createElement('canvas');
@@ -51,12 +51,13 @@ Object.assign(canvas.style, {
   top:           '0',
   left:          '0',
   zIndex:        '100',
-  pointerEvents: 'none',
+  pointerEvents: 'none',  // browse mode until user picks a tool
+  cursor:        'default',
 });
 
 // The body must be position:relative so the absolute canvas stays inside it.
-document.body.style.position = 'relative';
-document.body.appendChild(canvas);
+document.documentElement.style.position = 'relative';
+document.documentElement.appendChild(canvas);
 
 const ctx = canvas.getContext('2d');
 
@@ -64,8 +65,8 @@ const ctx = canvas.getContext('2d');
 // Hide the canvas first so it doesn't inflate the measured dimensions.
 function sizeCanvas() {
   canvas.style.display = 'none';
-  const w = document.body.scrollWidth;
-  const h = document.body.scrollHeight;
+  const w = document.documentElement.scrollWidth;
+  const h = document.documentElement.scrollHeight;
   canvas.style.display = '';
   canvas.width  = w;
   canvas.height = h;
@@ -83,6 +84,7 @@ const dnx = x => x * canvas.width;
 const dny = y => y * canvas.height;
 
 // Get document-relative position from a mouse or touch event.
+// Canvas is anchored at (0,0) of <html>, so pageX/pageY map directly.
 function docPos(e) {
   const src = e.touches?.[0] ?? e;
   return { x: src.pageX, y: src.pageY };
@@ -95,18 +97,18 @@ function buildToolbar() {
 
   el.innerHTML = `
     <div class="toolbar-row">
-      <button data-tool="pen"    class="active">Draw</button>
-      <button data-tool="erase"               >Erase</button>
-      <button data-tool="browse"              >Browse</button>
+      <button data-tool="pen"               >Draw</button>
+      <button data-tool="erase"             >Erase</button>
+      <button data-tool="browse" class="active">Browse</button>
       ${IS_ADMIN ? '<button id="btn-clear">Clear</button>' : ''}
     </div>
     <div class="toolbar-row">
       <span class="toolbar-label">Color</span>
       <div class="swatches" id="swatches"></div>
-      <input type="color" id="color-custom" value="${activeColor}"
-             title="Custom colour"
-             style="width:14px;height:14px;padding:0;border:none;
-                    cursor:pointer;background:none;vertical-align:middle;">
+      <label class="swatch-wheel" id="swatch-wheel" title="Custom colour" style="margin-left:0.35rem">
+        <span class="wheel-icon"></span>
+        <input type="color" id="color-custom" value="${activeColor}">
+      </label>
     </div>
     <div class="toolbar-row">
       <span class="toolbar-label">Size</span>
@@ -129,15 +131,17 @@ function buildToolbar() {
       activeColor = color;
       el.querySelector('#color-custom').value = color;
       el.querySelectorAll('.swatch').forEach(n => n.classList.remove('active'));
+      el.querySelector('#swatch-wheel')?.classList.remove('active');
       s.classList.add('active');
     });
     swatchWrap.appendChild(s);
   });
 
-  // Custom colour picker
+  // Custom colour wheel picker
   el.querySelector('#color-custom').addEventListener('input', e => {
     activeColor = e.target.value;
     el.querySelectorAll('.swatch').forEach(n => n.classList.remove('active'));
+    el.querySelector('#swatch-wheel').classList.add('active');
   });
 
   // Tool buttons
@@ -158,6 +162,7 @@ function setTool(tool) {
   activeTool = tool;
   canvas.style.pointerEvents = tool ? 'auto' : 'none';
   canvas.style.cursor = tool === 'pen' ? 'crosshair' : tool === 'erase' ? 'cell' : 'default';
+  document.body.style.userSelect = tool ? 'none' : '';
 
   document.querySelectorAll('#graffiti-toolbar [data-tool]').forEach(btn => {
     const match = tool === null ? btn.dataset.tool === 'browse' : btn.dataset.tool === tool;
@@ -175,6 +180,7 @@ canvas.addEventListener('touchmove',  e => { e.preventDefault(); onMove(e); }, {
 canvas.addEventListener('touchend',   e => { e.preventDefault(); onUp(e);   }, { passive: false });
 
 function onDown(e) {
+  e.preventDefault();
   if (activeTool === 'erase') { handleErase(e); return; }
   if (activeTool !== 'pen') return;
   isDrawing = true;
@@ -183,6 +189,7 @@ function onDown(e) {
 }
 
 function onMove(e) {
+  e.preventDefault();
   if (!isDrawing || activeTool !== 'pen') return;
   const p = docPos(e);
   livePoints.push({ x: nx(p.x), y: ny(p.y) });
@@ -366,6 +373,6 @@ function debounce(fn, ms) {
 
 // ─── Boot ─────────────────────────────────────────────────────────────────────
 buildToolbar();
-setTool('pen');
+setTool(null);   // default: browse — canvas transparent to clicks
 loadStrokes();
 subscribeRealtime();

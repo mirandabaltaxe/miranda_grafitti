@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Work &mdash; Your Name</title>
+  <title>Work &mdash; Miranda Baltaxe</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="style.css">
@@ -11,7 +11,7 @@
 <body>
 
   <nav>
-    <div class="site-title"><a href="index.html">Your Name</a></div>
+    <div class="site-title"><a href="index.html">Miranda Baltaxe</a></div>
     <div class="nav-links">
       <a href="index.html">Home</a>
       <span class="current">Work</span>
@@ -28,55 +28,169 @@
 
     <ul class="project-list">
 
-      <li id="project-one">
-        <div class="project-title">Project One</div>
-        <div class="project-meta">2025 &mdash; Web</div>
-        <p>A short description of what this project was, what problem it solved,
-        and what your role in it was. Two or three sentences.</p>
-        <div class="project-links">
-          <a href="#">Visit &rarr;</a>
-          <a href="#">GitHub &rarr;</a>
+      <li id="powderhound">
+        <div class="project-title">Powderhound &mdash; R&amp;D Motion Tracker</div>
+        <div class="project-meta">2025 &mdash; Present</div>
+        <div class="tags" style="grid-column:1/-1;grid-row:2">
+          <span class="tag">ESP32-S3</span>
+          <span class="tag">FreeRTOS</span>
+          <span class="tag">PCB</span>
+          <span class="tag">IMU</span>
+          <span class="tag">Sports Tech</span>
+          <span class="tag">Carv</span>
+        </div>
+        <p style="grid-row:3">
+          A high-frequency boot-mounted motion tracker for Carv&rsquo;s data science team.
+          Captures motion data 24&ndash;50&times; faster than Carv&rsquo;s production sensor, with none
+          of the setup overhead of the instrumented ski platform. I designed the PCB in KiCad,
+          wrote FreeRTOS firmware and custom drivers in C/C++ from scratch, and am currently
+          testing prototypes on the hill in Innsbruck.
+          Details pending approval from Carv &mdash; happy to answer questions directly.
+        </p>
+        <div class="project-links" style="grid-row:4">
+          <a href="https://getcarv.com" target="_blank">Carv &rarr;</a>
         </div>
       </li>
 
-      <li id="project-two">
-        <div class="project-title">Project Two</div>
-        <div class="project-meta">2025 &mdash; Identity</div>
-        <p>A short description of what this project was, what problem it solved,
-        and what your role in it was. Two or three sentences.</p>
-        <div class="project-links">
-          <a href="#">Visit &rarr;</a>
+      <li id="misty">
+        <div class="project-title">Misty One &mdash; Instrumented Ski Platform</div>
+        <div class="project-meta">2025 &mdash; Present</div>
+        <div class="tags" style="grid-column:1/-1;grid-row:2">
+          <span class="tag">FreeRTOS</span>
+          <span class="tag">C/C++</span>
+          <span class="tag">PCB</span>
+          <span class="tag">FPC</span>
+          <span class="tag">IMU</span>
+          <span class="tag">BLE</span>
+          <span class="tag">Carv</span>
+        </div>
+        <p style="grid-row:3">
+          Smart skis that stream real-time pressure distribution and 6-axis IMU data from
+          embedded sensors in the ski binding to Carv&rsquo;s mobile app over Bluetooth LE,
+          for sports science R&amp;D. My scope covers the full stack: FreeRTOS firmware and
+          custom drivers in C/C++; IMU, vibrometer, and multi-channel ADC selection and
+          integration; PCB and FPC schematic and layout in KiCad; and prototype assembly
+          and field testing in Innsbruck. I also built a coulomb-counting test device to
+          characterise battery performance and improve state-of-charge estimation.
+        </p>
+        <div class="project-links" style="grid-row:4">
+          <a href="https://getcarv.com" target="_blank">Carv &rarr;</a>
         </div>
       </li>
 
-      <li id="project-three">
-        <div class="project-title">Project Three</div>
-        <div class="project-meta">2024 &mdash; Development</div>
-        <p>A short description of what this project was, what problem it solved,
-        and what your role in it was. Two or three sentences.</p>
-        <div class="project-links">
-          <a href="#">Visit &rarr;</a>
-          <a href="#">Case Study &rarr;</a>
+      <li id="coulomb">
+        <div class="project-title">Coulomb Counter &mdash; Battery Test Device</div>
+        <div class="project-meta">2025</div>
+        <div class="tags" style="grid-column:1/-1;grid-row:2">
+          <span class="tag">C/C++</span>
+          <span class="tag">Firmware</span>
+          <span class="tag">I&sup2;C</span>
+          <span class="tag">Battery</span>
+          <span class="tag">Carv</span>
+        </div>
+        <p style="grid-row:3">
+          Standalone test device and firmware to measure accumulated charge in and out of
+          Carv&rsquo;s production battery over time, producing real-world capacity and efficiency
+          data to validate and tune the state-of-charge algorithm. Integrates a coulomb counter
+          IC over I&sup2;C with embedded C firmware logging data for offline analysis.
+        </p>
+        <div class="project-links" style="grid-row:4">
+          <a href="https://getcarv.com" target="_blank">Carv &rarr;</a>
         </div>
       </li>
 
-      <li id="project-four">
-        <div class="project-title">Project Four</div>
-        <div class="project-meta">2024 &mdash; Web</div>
-        <p>A short description of what this project was, what problem it solved,
-        and what your role in it was. Two or three sentences.</p>
-        <div class="project-links">
-          <a href="#">Visit &rarr;</a>
+      <li id="braille">
+        <div class="project-title">fMRI-Compatible Refreshable Braille Display</div>
+        <div class="project-meta">2023&ndash;2024</div>
+        <div class="tags" style="grid-column:1/-1;grid-row:2">
+          <span class="tag">Haptics</span>
+          <span class="tag">Accessibility</span>
+          <span class="tag">PCB Assembly</span>
+          <span class="tag">Python</span>
+          <span class="tag">NewHaptics</span>
+        </div>
+        <p style="grid-row:3">
+          Standard refreshable braille displays are incompatible with MRI environments due to
+          metal components. This prototype replaces metal actuation with pneumatic fluidic
+          actuators, enabling braille display use inside a scanner for neuroscience and
+          accessibility research. Built at NewHaptics and deployed to researchers at
+          Johns Hopkins. My work included PCB population, custom fluidic chip manufacturing,
+          MATLAB/Python scripts for research applications, and direct coordination with
+          Johns Hopkins researchers to define requirements and deliver a packaged device.
+          Winner of the 2024 U&nbsp;of&nbsp;M ECE Commercialisation Award.
+        </p>
+        <div class="project-links" style="grid-row:4">
+          <a href="https://newhaptics.com" target="_blank">NewHaptics &rarr;</a>
         </div>
       </li>
 
-      <li id="project-five">
-        <div class="project-title">Project Five</div>
-        <div class="project-meta">2023 &mdash; Research</div>
-        <p>A short description of what this project was, what problem it solved,
-        and what your role in it was. Two or three sentences.</p>
-        <div class="project-links">
-          <a href="#">Read &rarr;</a>
+      <li id="tactile">
+        <div class="project-title">Tactile &mdash; Virtual Study Tool for the Blind</div>
+        <div class="project-meta">2023&ndash;2024</div>
+        <div class="tags" style="grid-column:1/-1;grid-row:2">
+          <span class="tag">ATmega2560</span>
+          <span class="tag">PCB</span>
+          <span class="tag">Embedded C</span>
+          <span class="tag">Haptics</span>
+          <span class="tag">EECS 473 Capstone</span>
+        </div>
+        <p style="grid-row:3">
+          A standalone flashcard and note-taking device for visually impaired students,
+          built around NewHaptics&rsquo; multi-line refreshable braille display. Lets students
+          load flashcard decks, flip through cards, write notes via an external keyboard,
+          and save files &mdash; no computer required. An LCD previews braille content for
+          sighted observers. Top-scoring EECS 473 capstone; submitted fully functional
+          two days ahead of a truncated deadline. My contributions: state machine
+          architecture, custom C driver API for the braille display (porting NewHaptics&rsquo;
+          Python API to ATmega2560), PCB design, SMD soldering, and SolidWorks enclosure.
+        </p>
+        <div class="project-links" style="grid-row:4">
+          <span class="meta">Stack: ATmega2560 &middot; SPI SD card &middot; PS/2 keyboard &middot; UART braille display</span>
+        </div>
+      </li>
+
+      <li id="hasel">
+        <div class="project-title">HASEL Actuators as a Soft Robotic Gripper</div>
+        <div class="project-meta">2020&ndash;2022</div>
+        <div class="tags" style="grid-column:1/-1;grid-row:2">
+          <span class="tag">Soft Robotics</span>
+          <span class="tag">HASEL</span>
+          <span class="tag">SolidWorks</span>
+          <span class="tag">Research</span>
+          <span class="tag">ROAHM Lab</span>
+        </div>
+        <p style="grid-row:3">
+          Designed and built soft robotic grippers using hydraulically amplified self-healing
+          electrostatic (HASEL) actuators capable of lifting and releasing objects &mdash; in
+          U&nbsp;of&nbsp;M&rsquo;s ROAHM and EMBiR Labs under Prof. Ram Vasudevan and Prof. Talia Y. Moore.
+          Tested three actuator geometries (curling, twisting Fibonacci spiral, webbed
+          multi-connected) and two gripper configurations; both successfully lifted ping pong
+          balls and paper cups. SolidWorks mounting design and MATLAB analysis of force output
+          and deformation across geometries.
+        </p>
+        <div class="project-links" style="grid-row:4">
+          <span class="meta">Supervised by Prof. Vasudevan &amp; Prof. Moore &middot; EMBiR Lab</span>
+        </div>
+      </li>
+
+      <li id="acl">
+        <div class="project-title">ACL Imaging Rig</div>
+        <div class="project-meta">2023</div>
+        <div class="tags" style="grid-column:1/-1;grid-row:2">
+          <span class="tag">SolidWorks</span>
+          <span class="tag">Form 3 SLA</span>
+          <span class="tag">Mechanical Design</span>
+          <span class="tag">Research</span>
+        </div>
+        <p style="grid-row:3">
+          Modular fixture for holding and precisely positioning ACL ligament samples during
+          imaging and mechanical testing experiments in the Arruda Lab at U&nbsp;of&nbsp;M.
+          Reconfigurable for different sample sizes and imaging angles. Designed in SolidWorks,
+          fabricated on the Form 3 SLA printer, iterated through formal design reviews with the
+          ME department chair.
+        </p>
+        <div class="project-links" style="grid-row:4">
+          <span class="meta">Arruda Lab, University of Michigan</span>
         </div>
       </li>
 
@@ -84,8 +198,8 @@
   </main>
 
   <footer>
-    Last updated May 2025 &mdash;
-    <a href="mailto:you@yourname.com">you@yourname.com</a>
+    &copy; 2026 Miranda Baltaxe &mdash;
+    <a href="mailto:miranda.baltaxe@yahoo.com">miranda.baltaxe@yahoo.com</a>
   </footer>
 
   <div id="graffiti-toolbar"></div>
