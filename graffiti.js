@@ -77,17 +77,21 @@ window.addEventListener('load', sizeCanvas);
 window.addEventListener('resize', debounce(sizeCanvas, 250));
 
 // ─── Coordinate helpers ───────────────────────────────────────────────────────
-// Store points as fractions (0–1) so strokes survive viewport/font changes.
-const nx  = x => x / canvas.width;
-const ny  = y => y / canvas.height;
-const dnx = x => x * canvas.width;
-const dny = y => y * canvas.height;
+// Strokes are stored as {x: pixels from body left edge, y: absolute pageY}.
+// This anchors them to the content column, not the viewport — so they stay
+// in place relative to the text when the window is resized.
 
-// Get document-relative position from a mouse or touch event.
-// Canvas is anchored at (0,0) of <html>, so pageX/pageY map directly.
+function bodyLeft() {
+  return document.body.getBoundingClientRect().left + window.scrollX;
+}
+
+// Get body-relative position from a mouse or touch event.
 function docPos(e) {
   const src = e.touches?.[0] ?? e;
-  return { x: src.pageX, y: src.pageY };
+  return {
+    x: src.pageX - bodyLeft(),
+    y: src.pageY,
+  };
 }
 
 // ─── Toolbar ──────────────────────────────────────────────────────────────────
@@ -185,14 +189,14 @@ function onDown(e) {
   if (activeTool !== 'pen') return;
   isDrawing = true;
   const p = docPos(e);
-  livePoints = [{ x: nx(p.x), y: ny(p.y) }];
+  livePoints = [{ x: p.x, y: p.y }];
 }
 
 function onMove(e) {
   e.preventDefault();
   if (!isDrawing || activeTool !== 'pen') return;
   const p = docPos(e);
-  livePoints.push({ x: nx(p.x), y: ny(p.y) });
+  livePoints.push({ x: p.x, y: p.y });
   paintLive();
 }
 
@@ -208,6 +212,7 @@ function onUp() {
 function paintLive() {
   const pts = livePoints;
   if (pts.length < 2) return;
+  const bl = bodyLeft();
 
   ctx.beginPath();
   ctx.strokeStyle = activeColor;
@@ -216,16 +221,16 @@ function paintLive() {
   ctx.lineJoin    = 'round';
 
   if (pts.length === 2) {
-    ctx.moveTo(dnx(pts[0].x), dny(pts[0].y));
-    ctx.lineTo(dnx(pts[1].x), dny(pts[1].y));
+    ctx.moveTo(pts[0].x + bl, pts[0].y);
+    ctx.lineTo(pts[1].x + bl, pts[1].y);
   } else {
     const a = pts[pts.length - 3];
     const b = pts[pts.length - 2];
     const c = pts[pts.length - 1];
-    const mx = (dnx(b.x) + dnx(c.x)) / 2;
-    const my = (dny(b.y) + dny(c.y)) / 2;
-    ctx.moveTo((dnx(a.x) + dnx(b.x)) / 2, (dny(a.y) + dny(b.y)) / 2);
-    ctx.quadraticCurveTo(dnx(b.x), dny(b.y), mx, my);
+    const mx = (b.x + bl + c.x + bl) / 2;
+    const my = (b.y + c.y) / 2;
+    ctx.moveTo((a.x + bl + b.x + bl) / 2, (a.y + b.y) / 2);
+    ctx.quadraticCurveTo(b.x + bl, b.y, mx, my);
   }
 
   ctx.stroke();
@@ -235,6 +240,7 @@ function paintLive() {
 function paintStroke(stroke) {
   const pts = stroke.points;
   if (!pts || pts.length < 2) return;
+  const bl = bodyLeft();
 
   ctx.beginPath();
   ctx.strokeStyle = stroke.color;
@@ -242,16 +248,16 @@ function paintStroke(stroke) {
   ctx.lineCap     = 'round';
   ctx.lineJoin    = 'round';
 
-  ctx.moveTo(dnx(pts[0].x), dny(pts[0].y));
+  ctx.moveTo(pts[0].x + bl, pts[0].y);
 
   for (let i = 1; i < pts.length - 1; i++) {
-    const mx = (dnx(pts[i].x) + dnx(pts[i + 1].x)) / 2;
-    const my = (dny(pts[i].y) + dny(pts[i + 1].y)) / 2;
-    ctx.quadraticCurveTo(dnx(pts[i].x), dny(pts[i].y), mx, my);
+    const mx = (pts[i].x + bl + pts[i + 1].x + bl) / 2;
+    const my = (pts[i].y + pts[i + 1].y) / 2;
+    ctx.quadraticCurveTo(pts[i].x + bl, pts[i].y, mx, my);
   }
 
   const last = pts[pts.length - 1];
-  ctx.lineTo(dnx(last.x), dny(last.y));
+  ctx.lineTo(last.x + bl, last.y);
   ctx.stroke();
 }
 
@@ -274,11 +280,12 @@ function handleErase(e) {
 }
 
 // Returns true if point (px, py) falls within ERASE_RADIUS of any segment.
+// Both the click point and stored coords are body-relative pixels.
 function hitTest(stroke, px, py) {
   const pts = stroke.points;
   for (let i = 0; i < pts.length - 1; i++) {
-    const ax = dnx(pts[i].x),     ay = dny(pts[i].y);
-    const bx = dnx(pts[i+1].x),   by = dny(pts[i+1].y);
+    const ax = pts[i].x,   ay = pts[i].y;
+    const bx = pts[i+1].x, by = pts[i+1].y;
     if (segmentDist(px, py, ax, ay, bx, by) < ERASE_RADIUS + stroke.width / 2) {
       return true;
     }
